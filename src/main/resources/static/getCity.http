@@ -1,0 +1,2 @@
+GET http://localhost:8080/persons/by-city?city=Saint Petersburg
+Accept: application/json
