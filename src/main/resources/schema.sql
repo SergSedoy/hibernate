@@ -7,7 +7,7 @@ create table person (
         age int check (age > 0),
         phone_number varchar(255),
         city_of_living varchar(255)
-)
+);
 
 insert into person (name, surname, age, phone_number, city_of_living) values ('serg', 'sedoy', 33, '89998887755', 'London');
 insert into person (name, surname, age, phone_number, city_of_living) values ('oleg', 'petrov', 22, '89998887755', 'Saint Petersburg');
