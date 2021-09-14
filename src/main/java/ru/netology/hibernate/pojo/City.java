@@ -11,20 +11,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
 @Entity
-public class Person {
-
+public class City {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String name;
-    private String surname;
-    private int age;
-    private String phoneNumber;
-    private String city_of_living;
-
 }

@@ -1,0 +1,2 @@
+GET http://localhost:8080/persons/by-name?name=Serg&surname=sedoy
+Accept: application/json

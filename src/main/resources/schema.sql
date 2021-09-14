@@ -15,9 +15,13 @@ insert into person (name, surname, age, phone_number, city_of_living) values ('a
 insert into person (name, surname, age, phone_number, city_of_living) values ('igor','igorev' , 42, '89211111111', 'Madrid');
 insert into person (name, surname, age, phone_number, city_of_living) values ('vasya', 'boroda', 15, '89317899999', 'Saint Petersburg');
 
-# select name, surname from person
-# where city_of_living = 'Moscow';
-#
-# select * from person
-# where age > 27
-# order by age desc;
+create table city (
+                        id int primary key auto_increment,
+                        name varchar(255) not null,
+                        person_id int,
+                        FOREIGN KEY (person_id) REFERENCES person (id)
+);
+
+insert into city (name, person_id) values ('London', 1);
+insert into city (name, person_id) values ('Saint Petersburg', 2);
+insert into city (name, person_id) values ('Moscow', 3);
