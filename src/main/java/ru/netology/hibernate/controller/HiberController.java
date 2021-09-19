@@ -1,14 +1,13 @@
 package ru.netology.hibernate.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import ru.netology.hibernate.pojo.City;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 import ru.netology.hibernate.pojo.Person;
 import ru.netology.hibernate.repository.HiberRepository;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class HiberController {
@@ -18,18 +17,27 @@ public class HiberController {
         this.repository = repository;
     }
 
-    @GetMapping("/city/by-name")
-    public List<City> getCity(@RequestParam ("city") String city) {
-        return repository.getCityByName(city);
-    }
-
     @GetMapping("/persons/by-age")
+    @Secured("ROLE_READ")
     public List<Person> getPerson(@RequestParam("age") int age) {
         return repository.getPersonByAge(age);
     }
 
-    @GetMapping("/persons/by-name")
-    public Optional<Person> getPerson(@RequestParam("name") String name, @RequestParam("surname") String surname) {
-        return repository.getPersonByName(name, surname);
+    @GetMapping("/persons/by-id")
+    @PreAuthorize("hasRole('ROLE_DELETE')")
+    public String getPerson(@RequestParam("id") long id) {
+        return repository.delPersonById(id);
+    }
+
+    @PostMapping("/persons/write")
+    @RolesAllowed("ROLE_WRITE")
+    public String createPerson(@RequestBody Person person) {
+        System.out.println(person.getSurname());
+        return repository.createPerson(person);
+    }
+
+    @GetMapping("/persons/all")
+    public List<Person> getAllPerson(String name){
+        return repository.getAllPerson(name);
     }
 }

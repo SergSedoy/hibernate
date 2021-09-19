@@ -1,0 +1,12 @@
+POST http://localhost:8080/persons/write
+Accept: application/json
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "Helen",
+  "surname": "Fridrih",
+  "age": 25,
+  "phoneNumber": "89219876543",
+  "city_of_living": "Rim"
+}
