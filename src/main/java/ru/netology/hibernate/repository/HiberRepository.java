@@ -2,7 +2,6 @@ package ru.netology.hibernate.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 import ru.netology.hibernate.pojo.Person;
 import ru.netology.hibernate.pojo.PersonMapper;
@@ -35,9 +34,7 @@ public class HiberRepository {
         return "УСПЕХ!!!";
     }
 
-    public List<Person> getAllPerson(String name) {
-        if(!name.equals(SecurityContextHolder.getContext().getAuthentication().getName()))
-            return null;
+    public List<Person> getAllPerson() {
         return namedParameterJdbcTemplate.query("SELECT * FROM person", new PersonMapper());
     }
 }

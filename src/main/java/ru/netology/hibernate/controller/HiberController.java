@@ -2,6 +2,7 @@ package ru.netology.hibernate.controller;
 
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import ru.netology.hibernate.pojo.Person;
 import ru.netology.hibernate.repository.HiberRepository;
@@ -15,6 +16,11 @@ public class HiberController {
 
     public HiberController(HiberRepository repository) {
         this.repository = repository;
+    }
+
+    @GetMapping("/")
+    public String greeteng() {
+        return "Hello " + SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
     @GetMapping("/persons/by-age")
@@ -37,7 +43,8 @@ public class HiberController {
     }
 
     @GetMapping("/persons/all")
-    public List<Person> getAllPerson(String name){
-        return repository.getAllPerson(name);
+    @PreAuthorize("#name == authentication.principal.username")
+    public List<Person> getAllPerson(@RequestParam("name") String name){
+        return repository.getAllPerson();
     }
 }
